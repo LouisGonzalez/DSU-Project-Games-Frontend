@@ -1,0 +1,27 @@
+{
+  "name": "frontend---games",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "build": "webpack --mode production",
+    "builddev": "webpack --mode development"
+  },
+  "author": "Luis",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@babel/preset-env": "^7.18.10",
+    "babel-loader": "^8.2.5",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0",
+    "express": "^4.18.1",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nodemon": "^2.0.19"
+  }
+}
