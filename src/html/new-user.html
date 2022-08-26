@@ -24,16 +24,18 @@
         <br /><br />
         <h1>USER REGISTER</h1>
         <br /><br />
-        <form>
+        <form id="form1" action="" method="POST">
           <ul>
             <li>
-              <input type="text" placeholder="Username" />
+              <input type="text" id="Name" placeholder="Username" />
             </li>
             <li>
-              <input type="text" placeholder="Age" />
+              <input type="text" id="Age" placeholder="Age" />
             </li>
             <li>
-              <a href="#" class="btn btn4"><strong>Sign up</strong></a>
+              <a onclick="addPlayer()" id="add" href="#" class="btn btn4"
+                ><strong>Sign up</strong></a
+              >
             </li>
             <li>
               <a href="../../index.html" class="btn btn3"
@@ -49,5 +51,6 @@
       class="cssdeck"
       src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"
     ></script>
+    <script src="../js/players.js"></script>
   </body>
 </html>
