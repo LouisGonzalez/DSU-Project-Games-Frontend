@@ -15,34 +15,24 @@
       integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../css/style-new-user.css" />
-    <link rel="stylesheet" href="../css/components/buttons.css" />
+    <link rel="stylesheet" href="../css/style-listplayers.css" />
   </head>
-  <body>
+  <body id="body">
     <div class="flat-form">
-      <div id="register" class="form-action">
-        <br /><br />
-        <h1>USER REGISTER</h1>
-        <br /><br />
-        <form id="form1">
-          <ul>
-            <li>
-              <input type="text" id="Name" placeholder="Username" />
-            </li>
-            <li>
-              <input type="text" id="Age" placeholder="Age" />
-            </li>
-            <li>
-              <a id="add" href="#" class="btn btn4"><strong>Sign up</strong></a>
-            </li>
-            <li>
-              <a href="../../index.html" class="btn btn3"
-                ><strong>Go to the menu</strong></a
-              >
-            </li>
-          </ul>
-        </form>
-      </div>
+      <h1>PLAYER LIST</h1>
+      <table class="table">
+        <thead>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
+          <th scope="col" colspan="2 ">Action</th>
+        </thead>
+        <tbody id="tbody">
+          <tr>
+            <td>name</td>
+            <td>age</td>
+          </tr>
+        </tbody>
+      </table>
       <!--/#register.form-action-->
     </div>
     <script
