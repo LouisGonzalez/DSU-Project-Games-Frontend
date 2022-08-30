@@ -1,0 +1,56 @@
+
+.keycontainer {
+  margin:50px 0 0 5px;
+  text-align: center;
+}
+
+.row {
+  width: 50%;
+  height: 50px;
+}
+
+.one,
+.two,
+.three,
+.four,
+.five {
+  margin: 10px 0 0 0;
+}
+
+button {
+  color: black;
+  opacity: 0.9;
+  font-weight: 500;
+  width: 50px;
+  height:50px;
+  border: none;
+  background: rgb(214, 214, 214);
+  box-shadow: 0 0 10px #9521f3, 0 0 40px #c600ee, 0 0 80px #f704f7;
+
+  font-size: 15px;
+  margin-left: 5px;
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 20%;
+}
+
+button:active {
+  box-shadow: 1px 1px 2px #fd0c99, 1px 1px 2px #ff00dd;
+}
+
+.back {
+  width: 148px;
+  border-radius: 10px;
+}
+
+.enter-btn {
+  width: 109px;
+  border-radius: 10px;
+}
+
+.space {
+  width: 398px;
+  border-radius: 10px;
+
+}
+

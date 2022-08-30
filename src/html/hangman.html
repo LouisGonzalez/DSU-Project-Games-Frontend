@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <meta charset="UTF-8">
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
       integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
       crossorigin="anonymous"
-    ></script>    
-    <link rel="stylesheet" href="../css/components/buttons.css" />
-    <link rel="stylesheet" href="../css/style-tictactoe.css" />
+    ></script>  
+     
+    <link rel="stylesheet" href="../css/components/buttons.css" >
+    <link rel="stylesheet" href="../css/style_hangman.css" >
+    <link rel="stylesheet" href="../css/components/keyboard.css" >
+
+    <title>Hangman</title>
+
   </head>
-  <body>
+
+<body>
+
+    <div class="block-container">
+      
+    <div class="gamebox">
+      <div class="hangmanboard">
+        <div class="hmframe" id="frame"></div>
+        <div class="hmbodyparts">
+          <div class="hmbodyparts"></div>
+          <div class="hmbodyparts"></div>
+
+        </div>
+      </div>
+      
+    </div>
 
     <div class="flat-form">
       <form action="">
@@ -27,19 +41,80 @@
           <p>player 1</p>
         </div>
         <div class="block-form">
-          <h1>Move count:</h1>
+          <h1>Guessing count:</h1>
           <p id="countMoves">0</p>
         </div>
         <div class="block-form">
           <a href="../../index.html" class="btn btn3"
-            ><strong>Go to the menu</strong></a
-          >
+            ><strong>Go to the menu</strong></a>
         </div>
       </form>
       <h1 id="title-game">Hangman</h1>
     </div>
-  </div>
-  <script src="../js/tictactoe.js"></script>
 
-  </body>
+    </div>
+
+    <!-- **KEYBOARD** -->
+    <div class="keycontainer">      
+      <div class="row one">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button>0</button>
+          <button class="back">Backspace</button>
+      </div>
+
+      <div class="row two">
+          <button>Q</button>
+          <button>W</button>
+          <button>E</button>
+          <button>R</button>
+          <button>T</button>
+          <button>Y</button>
+          <button>U</button>
+          <button>I</button>
+          <button>O</button>
+          <button>P</button>
+      </div>
+
+      <div class="row three">
+          <button>A</button>
+          <button>S</button>
+          <button>D</button>
+          <button>F</button>
+          <button>G</button>
+          <button>H</button>
+          <button>I</button>
+          <button>J</button>
+          <button>K</button>
+          <button>L</button>
+          <button>ñ</button>
+          <button class="enter-btn">Enter</button>
+      </div>
+
+      <div class="row four">
+          <button>Z</button>
+          <button>X</button>
+          <button>C</button>
+          <button>V</button>
+          <button>B</button>
+          <button>N</button>
+          <button>M</button>
+      </div>
+
+      <div class="row five">
+          <button class="space">space</button>
+     </div>
+    
+  </div>
+    
+  <script src="../js/hangman.js"></script>
+</body>
+
 </html>
