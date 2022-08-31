@@ -27,13 +27,40 @@
         <form>
           <ul>
             <li>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Username" id="username" />
             </li>
             <li>
-              <input type="text" placeholder="Age" />
+              <input type="text" placeholder="Age" id="age" />
             </li>
             <li>
-              <a href="#" class="btn btn4"><strong>Sign up</strong></a>
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="btnTypePlayer"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Type player
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" onclick="chooseTypePlayer(1)"
+                      >Human</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" onclick="chooseTypePlayer(2)"
+                      >Bot</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a href="#" class="btn btn4" id="btnSave"
+                ><strong>Sign up</strong></a
+              >
             </li>
             <li>
               <a href="../../index.html" class="btn btn3"
@@ -49,5 +76,6 @@
       class="cssdeck"
       src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"
     ></script>
+    <script src="../js/newPlayer.js"></script>
   </body>
 </html>

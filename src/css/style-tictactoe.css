@@ -90,3 +90,7 @@ h5 {
   font-size: 100px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.btn-right {
+  margin-left: 15px;
+}
