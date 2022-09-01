@@ -20,16 +20,30 @@
 
 <body>
 
-    <div class="block-container">
-      
-    <div class="gamebox">
-      <div class="hangmanboard">
-        <div class="hmframe" id="frame"></div>
-        <div class="hmbodyparts">
-          <div class="hmbodyparts"></div>
-          <div class="hmbodyparts"></div>
+  <div class="enterword">
 
-        </div>
+        
+  </div>
+
+    <div class="block-container">     
+
+    <div class="gamebox">       
+
+      <img class="hangmanboard" id=frameattempts src="../images/hangman/HmFrame8.png" width=100% height=417px>  
+
+      <div class ="gameinfo">        
+        <h4>Attempts Left:</h4>
+        <p1 id="attempts">8</p1>
+      </div>
+
+      <div class ="gameinfo">    
+        <h4>Letter selected:</h4>
+        <p1 id="guessingLetter"> " " </p1>
+      </div>
+      
+      <div class ="gameinfo">   
+        <h3>Letters chosen:</h3>
+        <p1 id="guessedLetters"> " " </p1>  
       </div>
       
     </div>
@@ -38,15 +52,15 @@
       <form action="">
         <div class="block-form">
           <h1>Turn:</h1>
-          <p>player 1</p>
+          <p id="player">Player 1</p>
         </div>
         <div class="block-form">
           <h1>Guessing count:</h1>
           <p id="countMoves">0</p>
         </div>
         <div class="block-form">
-          <a href="../../index.html" class="btn btn3"
-            ><strong>Go to the menu</strong></a>
+          <a href="../../index.html" class="btn btn3">
+            <strong>Go to the menu</strong></a>
         </div>
       </form>
       <h1 id="title-game">Hangman</h1>
@@ -57,64 +71,65 @@
     <!-- **KEYBOARD** -->
     <div class="keycontainer">      
       <div class="row one">
-          <button>1</button>
-          <button>2</button>
-          <button>3</button>
-          <button>4</button>
-          <button>5</button>
-          <button>6</button>
-          <button>7</button>
-          <button>8</button>
-          <button>9</button>
-          <button>0</button>
-          <button class="back">Backspace</button>
+          <button type="button" onClick="input(this.id)" id=button1 >1</button>
+          <button type="button" onClick="input(this.id)" id=button2 >2</button>
+          <button type="button" onClick="input(this.id)" id=button3 >3</button>
+          <button type="button" onClick="input(this.id)" id=button4 >4</button>
+          <button type="button" onClick="input(this.id)" id=button5 >5</button>
+          <button type="button" onClick="input(this.id)" id=button6 >6</button>
+          <button type="button" onClick="input(this.id)" id=button7 >7</button>
+          <button type="button" onClick="input(this.id)" id=button8 >8</button>
+          <button type="button" onClick="input(this.id)" id=button9 >9</button>
+          <button type="button" onClick="input(this.id)" id=button0 >0</button>
+          <button type="button" onClick="del()" id=buttonBack  class="back">Backspace</button>
       </div>
 
       <div class="row two">
-          <button>Q</button>
-          <button>W</button>
-          <button>E</button>
-          <button>R</button>
-          <button>T</button>
-          <button>Y</button>
-          <button>U</button>
-          <button>I</button>
-          <button>O</button>
-          <button>P</button>
+          <button type="button" onClick="input(this.id)" id=buttonQ >Q</button>
+          <button type="button" onClick="input(this.id)" id=buttonW >W</button>
+          <button type="button" onClick="input(this.id)" id=buttonE >E</button>
+          <button type="button" onClick="input(this.id)" id=buttonR >R</button>
+          <button type="button" onClick="input(this.id)" id=buttonT >T</button>
+          <button type="button" onClick="input(this.id)" id=buttonY >Y</button>
+          <button type="button" onClick="input(this.id)" id=buttonU >U</button>
+          <button type="button" onClick="input(this.id)" id=buttonI >I</button>
+          <button type="button" onClick="input(this.id)" id=buttonO >O</button>
+          <button type="button" onClick="input(this.id)" id=buttonP >P</button>
       </div>
 
       <div class="row three">
-          <button>A</button>
-          <button>S</button>
-          <button>D</button>
-          <button>F</button>
-          <button>G</button>
-          <button>H</button>
-          <button>I</button>
-          <button>J</button>
-          <button>K</button>
-          <button>L</button>
-          <button>ñ</button>
-          <button class="enter-btn">Enter</button>
+          <button type="button" onClick="input(this.id)" id=buttonA >A</button>
+          <button type="button" onClick="input(this.id)" id=buttonS >S</button>
+          <button type="button" onClick="input(this.id)" id=buttonD >D</button>
+          <button type="button" onClick="input(this.id)" id=buttonF >F</button>
+          <button type="button" onClick="input(this.id)" id=buttonG >G</button>
+          <button type="button" onClick="input(this.id)" id=buttonH >H</button>
+          <button type="button" onClick="input(this.id)" id=buttonI >I</button>
+          <button type="button" onClick="input(this.id)" id=buttonJ >J</button>
+          <button type="button" onClick="input(this.id)" id=buttonK >K</button>
+          <button type="button" onClick="input(this.id)" id=buttonL >L</button>
+          <button type="button" onClick="input(this.id)" id=buttonÑ >Ñ</button>
+          <button type="button" onClick="ent()" id=buttonEnter  class="enter-btn">Enter</button>
       </div>
 
       <div class="row four">
-          <button>Z</button>
-          <button>X</button>
-          <button>C</button>
-          <button>V</button>
-          <button>B</button>
-          <button>N</button>
-          <button>M</button>
+          <button type="button" onClick="input(this.id)" id=buttonZ >Z</button>
+          <button type="button" onClick="input(this.id)" id=buttonX >X</button>
+          <button type="button" onClick="input(this.id)" id=buttonC >C</button>
+          <button type="button" onClick="input(this.id)" id=buttonV >V</button>
+          <button type="button" onClick="input(this.id)" id=buttonB >B</button>
+          <button type="button" onClick="input(this.id)" id=buttonN >N</button>
+          <button type="button" onClick="input(this.id)" id=buttonM >M</button>
       </div>
 
       <div class="row five">
-          <button class="space">space</button>
+          <button type="button" onClick="space()" id=buttonSpace  class="space">Space</button>
      </div>
     
   </div>
     
   <script src="../js/hangman.js"></script>
+  <script src="../js/keyboard.js"></script>
 </body>
 
 </html>
