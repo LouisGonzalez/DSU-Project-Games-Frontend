@@ -1,229 +1,167 @@
-var bttn = document.getElementById("add");
-if (bttn) {
-  bttn.addEventListener("click", addPlayer);
-}
+var $ = jQuery;
 
-function addPlayer(e) {
-  name = document.getElementById("Name").value;
-  age = document.getElementById("Age").value;
+const listplayers = () => {
+  $(document).ready(() => {
+    $.ajax({
+      url: "http://localhost:8080/playerList/",
+      type: "GET",
+      datatype: "json",
+      success: (res) => {
+        let data = "";
+        res.forEach((element) => {
+          data += `<tr playerId = ${element.id}>
+        <td>${element.id}</td>
+        <td>${element.name}</td>
+        <td>${element.age}</td>
+        <td><a id= "edit1" href="#" class="btn btn2"><strong>Edit</strong></a></td>
+        <td><a id="delete" href="#" class="btn btn2"><strong>Delete</strong></a></td>
+        </tr>`;
+        });
+        $("#tbody").html(data);
+      },
+    });
+  });
+};
 
-  let newPlayer = {
-    name,
-    age,
-  };
+const addPlayer = () => {
+  $("#add").on("click", function () {
+    const playerData = {
+      age: $("#Age").val(),
+      name: $("#Name").val(),
+      id: $("#Id").val(),
+    };
 
-  if (localStorage.getItem("playerList") === null) {
-    let playerList = [];
-    playerList.push(newPlayer);
-    localStorage.setItem("playerList", JSON.stringify(playerList));
-  } else {
-    let playerList = JSON.parse(localStorage.getItem("playerList"));
-    playerList.push(newPlayer);
-    localStorage.setItem("playerList", JSON.stringify(playerList));
-  }
-  read();
-  document.getElementById("form1").reset();
-  console.log("Usuario agregado");
-  e.preventDefault();
-}
+    $.ajax({
+      url: "http://localhost:8080/addPlayer",
+      contentType: "application/json",
+      type: "POST",
+      data: JSON.stringify(playerData),
+      datatype: "JSON",
+      success: (data) => {
+        reset();
+        console.log("Player Added");
+      },
+    });
+  });
+};
 
-function read() {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  document.getElementById("tbody").innerHTML = " "; //Having issues with read!
-  for (let i = 0; i < playerList.length; i++) {
-    let name = playerList[i].name;
-    let age = playerList[i].age;
-    document.getElementById("tbody").innerHTML += `<tr>
-        <td>${name}</td>
-        <td>${age}</td>
-        <td><a onclick ="edit('${name}')"  href="#" class="btn btn4"><strong>edit</strong></a></td>
-        <td><a onclick ="deletePlayer('${name}')" href="#" class="btn btn4"><strong>delete</strong></a></td>
-    </tr>`;
-  }
-}
+const editPlayer = () => {
+  $("#edit").on("click", function () {
+    let id = $("#Id").val();
+    $("#edit").css("display", "block");
 
-function validate() {
-  playerList = JSON.parse(localStorage.getItem("playerList"));
-  if (playerList === null || playerList.length < 2) {
-    window.location = "./src/html/new-user.html";
-  } else if (playerList.length >= 2) {
-    window.location = "./src/html/tictactoe.html";
-  }
-}
+    const playerData = {
+      id: $("#Id").val(),
+      name: $("#Name").val(),
+      age: $("#Age").val(),
+    };
 
-function edit(name) {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  for (let i = 0; i < playerList.length; i++) {
-    if (playerList[i].name === name) {
-      document.getElementById(
-        "body"
-      ).innerHTML = `<div class="flat-form" id="tbody">
-    <div id="register" class="form-action">
-      <br /><br />
-      <h1>EDIT REGISTER</h1>
-      <br /><br />
-      <form id="form1">
-        <ul>
-          <li>
-            <input type="text" id="newName" placeholder="${playerList[i].name}" />
-          </li>
-          <li>
-            <input type="text" id="newAge" placeholder="${playerList[i].age}" />
-          </li>
-          <li>
-          <a onclick ="update('${i}')" href="#" class="btn btn2"><strong>update</strong></a>
-          </li>
-        </ul>
-      </form>
-    </div>
-    <!--/#register.form-action-->
-  </div>`;
+    $.ajax({
+      url: "http://localhost:8080/updatePlayer",
+      contentType: "application/json",
+      type: "PUT",
+      data: JSON.stringify(playerData),
+      dataType: "json",
+      success: (res) => {
+        $("#hidden").hide();
+        reset();
+        listplayers();
+      },
+    });
+  });
+};
+
+const deletePlayer = () => {
+  $(document).on("click", "#delete", function () {
+    if (confirm("Are you sure?")) {
+      let deleteButton = $(this)[0].parentElement.parentElement;
+      let id = $(deleteButton).attr("playerId");
+
+      $.ajax({
+        url: "http://localhost:8080/delete/" + id,
+        type: "DELETE",
+        dataType: "json",
+        success: (res) => {
+          listplayers();
+        },
+      });
     }
-  }
-}
+  });
+};
 
-function update(i) {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  playerList[i].name = document.getElementById("newName");
-  playerList[i].age = document.getElementById("newAge");
-  if (playerList[i].name == "") {
-    alert("New name has not been entered");
-  } else {
-    if (playerList[i].age == "") {
-      alert("New age has not been entered");
-    }
-  }
-  localStorage.setItem("playerList", JSON.stringify(playerList));
-  principalView();
-}
+const fillPlayerData = () => {
+  $("#hidden").hide();
+  $(document).on("click", "#edit1", function () {
+    let editButton = $(this)[0].parentElement.parentElement;
+    let id = $(editButton).attr("playerId");
+    $("#edit1").show();
 
-function deletePlayer(name) {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  for (let i = 0; i < playerList.length; i++) {
-    if (playerList[i].name === name) {
-      playerList.splice(i, 1);
-    }
-  }
-  localStorage.setItem("playerList", JSON.stringify(playerList));
-  read();
-}
+    $.ajax({
+      url: "http://localhost:8080/getPlayerById/" + id,
+      type: "GET",
+      dataType: "json",
+      success: (res) => {
+        $("#hidden").show();
+        $("#Id").val(res.id);
+        $("#Name").val(res.name);
+        $("#Age").val(res.age);
+      },
+    });
+  });
+};
 
-function principalView() {
-  document.getElementById("body").innerHTML = `<div class="flat-form">
-  <h1>PLAYER LIST</h1>
-  <table class="table">
-    <thead>
-      <th scope="col">Name</th>
-      <th scope="col">Age</th>
-      <th scope="col" colspan="2 ">Action</th>
-    </thead>
-    <tbody id="tbody">
-      <tr>
-        <td>name</td>
-        <td>age</td>
-      </tr>
-    </tbody>
-  </table>
-  <!--/#register.form-action-->
-</div>`;
-  read();
-}
+const validation = () => {
+  $(document).on("click", "#validate", function () {
+    $.ajax({
+      url: "http://localhost:8080/playerList/",
+      type: "GET",
+      datatype: "json",
+      success: function (data) {
+        $.each(data, function () {
+          if (data.length < 2) {
+            window.location = "./src/html/new-user.html";
+          }
+          if (data.length >= 2) {
+            window.location = "./src/html/tictactoe.html";
+          }
+        });
+        console.log(data);
+      },
+    });
+  });
+};
 
-read();
+const validation2 = () => {
+  $(document).on("click", "#validate2", function () {
+    $.ajax({
+      url: "http://localhost:8080/playerList/",
+      type: "GET",
+      datatype: "json",
+      success: function (data) {
+        $.each(data, function () {
+          if (data.length < 2) {
+            window.location = "./src/html/new-user.html";
+          }
+          if (data.length >= 2) {
+            window.location = "./src/html/hangman.html";
+          }
+        });
+        console.log(data);
+      },
+    });
+  });
+};
 
-/*
-back up
-var bttn = document.getElementById("add");
-if (bttn) {
-  bttn.addEventListener("click", addPlayer);
-}
+const reset = () => {
+  $("#Id").val("");
+  $("#Name").val("");
+  $("#Age").val("");
+};
 
-function addPlayer(e) {
-  name = document.getElementById("Name").value;
-  age = document.getElementById("Age").value;
-
-  let newPlayer = {
-    name,
-    age,
-  };
-
-  if (localStorage.getItem("playerList") === null) {
-    let playerList = [];
-    playerList.push(newPlayer);
-    localStorage.setItem("playerList", JSON.stringify(playerList));
-  } else {
-    let playerList = JSON.parse(localStorage.getItem("playerList"));
-    playerList.push(newPlayer);
-    localStorage.setItem("playerList", JSON.stringify(playerList));
-  }
-  read();
-  document.getElementById("form1").reset();
-  console.log("Usuario agregado");
-  e.preventDefault();
-}
-
-function read() {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  document.getElementById("tbody").innerHTML = " ";
-  for (let i = 0; i < playerList.length; i++) {
-    let name = playerList[i].name;
-    let age = playerList[i].age;
-    document.getElementById("tbody").innerHTML += `<tr>
-        <td>${name}</td>
-        <td>${age}</td>
-        <td><a id="add" href="#" class="btn btn4"><strong>Sign up</strong></a></td>
-        <td><a id="add" href="#" class="btn btn4"><strong>Sign up</strong></a></td>
-    </tr>`;
-  }
-}
-
-function validate() {
-  playerList = JSON.parse(localStorage.getItem("playerList"));
-  if (playerList === null || playerList.length < 2) {
-    window.location = "./src/html/new-user.html";
-  } else if (playerList.length >= 2) {
-    window.location = "./src/html/tictactoe.html";
-  }
-}
-
-function edit(name) {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  for (let i = 0; i < playerList.length; i++) {
-    if (playerList[i].name === name) {
-      document.getElementById(
-        "body"
-      ).innerHTML = `<div class="flat-form" id="tbody">
-    <div id="register" class="form-action">
-      <br /><br />
-      <h1>EDIT REGISTER</h1>
-      <br /><br />
-      <form id="form1">
-        <ul>
-          <li>
-            <input type="text" id="newName" placeholder="${playerList[i].name}" />
-          </li>
-          <li>
-            <input type="text" id="newAge" placeholder="${playerList[i].age}" />
-          </li>
-          <li>
-          <button onclick ="update('${i}')" id="eliminate" href="#" class="btn btn2"><strong>update</strong></button>
-          </li>
-          <li>
-          <button onclick ="update(${i})" id="edit" href="#" class="btn btn2"><strong>Edit</strong></button>
-          </li>
-        </ul>
-      </form>
-    </div>
-    <!--/#register.form-action-->
-  </div>`;
-    }
-  }
-}
-
-function update(i) {
-  let playerList = JSON.parse(localStorage.getItem("playerList"));
-  playerList[i].name = document.getElementById("newName");
-  playerList[i].age = document.getElementById("newAge");
-  localStorage.setItem("playerList", JSON.stringify(playerList));
-}
-read();*/
+validation();
+validation2();
+listplayers();
+addPlayer();
+deletePlayer();
+editPlayer();
+fillPlayerData();
