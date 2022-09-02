@@ -1,0 +1,158 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css);
+
+body {
+  background: url("../images/fondo-juegos.jpg");
+  padding: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+}
+
+.btn {
+  position: relative;
+  display: block;
+  color: white;
+  font-size: 10px;
+  width: 50%;
+  height: 50%;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: none;
+  margin: 25px 0;
+  border: 1px solid #ff7675;
+  padding: 15px 15px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 1s all ease;
+}
+
+.center {
+  text-align: center;
+}
+
+.block-container {
+  display: flex;
+  justify-content: center;
+  margin: 25px auto;
+  width: 75%;
+  height: auto;
+  position: relative;
+}
+
+h1 {
+  color: #fff;
+  font-size: 42px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+p {
+  color: #fff;
+  font-size: 20px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px;
+}
+
+.table thead th {
+  background-color: black;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  text-align: center;
+}
+
+.table td,
+.table th {
+  padding: 12px 15px;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+input:focus {
+  background-color: yellow;
+}
+.flat-form {
+  background: #12283e; /*tablebg e74c3c #34495e  #88565b ed7271*/
+  opacity: 0.9;
+  margin: 25px auto;
+  width: 75%;
+  height: auto;
+  position: relative;
+}
+
+.tabs {
+  background: #ed7271; /*topbar #c0392b #88565b*/
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: 100%;
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.tabs a {
+  background: #ed7271; /*topbar c0392b  #88565b */
+  display: block;
+  float: left;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  padding: 12px 22px 12px 22px;
+  /*border-right: 1px solid @tab-border;*/
+}
+
+.tabs a.active {
+  background: #ed7271; /*topbar e74c3c  */
+  border-right: none;
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.dark-box {
+  background: #5e0400;
+  box-shadow: 1px 3px 3px #3d0100 inset;
+  height: 40px;
+  width: 50px;
+}
+.form-action .dark-box.bottom {
+  position: absolute;
+  right: 0;
+  bottom: -24px;
+}
+.tabs + .dark-box.top {
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .table thead {
+    display: none;
+  }
+}

@@ -1,33 +1,29 @@
+const API = "http://localhost:8080/api/v1";
 const IMAGE_X = "../images/markx.png";
 const IMAGE_O = "../images/neoncircle.jpg";
 const IMAGE_X_ID = 1;
 const IMAGE_O_ID = 2;
-var countClicks = 0;
-var playerX = { id: 0, username: "Pedro", typePlayer: "HUMAN", age: 12 };
-var playerO = { id: 1, username: "Jose", typePlayer: "BOT", age: 33 };
+var playerX = JSON.parse(localStorage.getItem("playerX"));
+var playerO = JSON.parse(localStorage.getItem("playerO"));
+var gameInfo = JSON.parse(localStorage.getItem("gameTTT"));
 var idGame = 0;
+var countClicks = 0;
 var squares = [];
 var gameOver = false;
 
-function createGame() {
-  var game = {
-    idGame: idGame,
-    playerX: playerX.id,
-    playerO: playerO.id,
-  };
-  var gameJSON = JSON.stringify(game);
-  sendPetition(
-    gameJSON,
-    "http://localhost:8080/api/v1/game/tictactoe/",
-    "POST"
-  );
+function initValues() {
+  idGame = gameInfo.idGame;
+  countClicks = gameInfo.countMoves;
+  if (countClicks > 0) {
+    loadBoard();
+  }
 }
 
 function putCoinHuman(squareAux, player, otherPlayer, image) {
   putImage(squareAux.id, image);
   console.log(squareAux.x, squareAux.y, squareAux.img, player.id);
   sendMove(squareAux.x, squareAux.y, squareAux.img, player.id);
-  document.getElementById("playerTurn").innerHTML = otherPlayer.username;
+  document.getElementById("playerTurn").innerHTML = otherPlayer.userName;
 }
 
 function putCoinBot(player, otherPlayer, typeCoin, image) {
@@ -36,7 +32,7 @@ function putCoinBot(player, otherPlayer, typeCoin, image) {
     putImage(squares[coin].id, image);
     squares[coin].img = typeCoin;
     sendMove(squares[coin].x, squares[coin].y, squares[coin].img, player.id);
-    document.getElementById("playerTurn").innerHTML = otherPlayer.username;
+    document.getElementById("playerTurn").innerHTML = otherPlayer.userName;
   } else {
     putCoinBot(player, otherPlayer, typeCoin, image);
   }
@@ -50,11 +46,7 @@ function updateCountMoves() {
     idPlayerO: playerO.id,
   };
   var dataMoveJSON = JSON.stringify(dataMove);
-  sendPetition(
-    dataMoveJSON,
-    "http://localhost:8080/api/v1/game/tictactoe/count-moves/",
-    "POST"
-  );
+  sendPetition(dataMoveJSON, API + "/game/tictactoe/count-moves/", "POST");
 }
 
 function initialValues() {
@@ -92,45 +84,8 @@ function sendMove(x, y, coin, player) {
   if (coin == "o") data.player = playerO.id;
   else if (coin == "x") data.player = playerX.id;
   var dataJSON = JSON.stringify(data);
-  var url = "http://localhost:8080/api/v1/tictactoe/move/";
+  var url = API + "/tictactoe/move/";
   sendPetition(dataJSON, url, "POST");
-}
-
-function saveGame() {
-  var game = {
-    playerX: 1,
-    playerO: 2,
-    winner: -1,
-    moves: [],
-  };
-  var moves = [];
-  for (let i = 0; i < squares.length; i++) {
-    var squareAux = squares[i];
-    if (!squareAux.save) {
-      squareSave = {};
-      if (squareAux.img == "x" || squareAux.img == "o") {
-        squareSave = {
-          idGame: idGame,
-          posX: squareAux.x,
-          posY: squareAux.y,
-          coin: squareAux.img,
-          player: playerO.id,
-        };
-      } else {
-        squareSave = {
-          idGame: idGame,
-          posX: squareAux.x,
-          posY: squareAux.y,
-          coin: "none",
-          player: -1,
-        };
-      }
-      moves.push(squareSave);
-    }
-  }
-  var gameJSON = JSON.stringify(game);
-  var url = "http://localhost:8080/api/v1/tictactoe/save";
-  sendPetition(gameJSON, url, "POST");
 }
 
 function sendPetition(dataJSON, url, typePetition) {
@@ -147,29 +102,9 @@ function sendPetition(dataJSON, url, typePetition) {
   movementReq.send(dataJSON);
 }
 
-function loadGame() {
-  loadGameData();
-  loadBoard();
-}
-
-function loadGameData() {
-  let req = new XMLHttpRequest();
-  req.open("GET", "http://localhost:8080/api/v1/game/tictactoe/data/" + idGame);
-  req.send();
-  req.onload = () => {
-    console.log(req.response);
-    var resJSON = JSON.parse(req.response);
-    console.log(resJSON.playerX);
-    console.log(resJSON.playerO);
-    playerX = resJSON.playerX;
-    playerO = resJSON.playerO;
-    countClicks = resJSON.countMoves;
-  };
-}
-
 function loadBoard() {
   let req = new XMLHttpRequest();
-  req.open("GET", "http://localhost:8080/api/v1/game/tictactoe/" + idGame);
+  req.open("GET", API + "/game/tictactoe/" + idGame);
   req.send();
   req.onload = () => {
     var resJSON = JSON.parse(req.response);
@@ -183,11 +118,10 @@ function loadBoard() {
       }
     }
   };
-  //falta recibir la informacion del juego(total de intentos, jugadores, etc)
 }
 
-createGame();
-document.getElementById("playerTurn").innerHTML = playerX.username;
+initValues();
+document.getElementById("playerTurn").innerHTML = playerX.userName;
 initialValues();
 for (let i = 0; i < squares.length; i++) {
   squares[i].square.addEventListener("click", () => {
