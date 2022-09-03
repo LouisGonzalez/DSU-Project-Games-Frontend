@@ -13,6 +13,7 @@ const listplayers = () => {
         <td>${element.id}</td>
         <td>${element.name}</td>
         <td>${element.age}</td>
+        <td>${element.type}</td>
         <td><a id= "edit1" href="#" class="btn btn2"><strong>Edit</strong></a></td>
         <td><a id="delete" href="#" class="btn btn2"><strong>Delete</strong></a></td>
         </tr>`;
@@ -29,6 +30,7 @@ const addPlayer = () => {
       age: $("#Age").val(),
       name: $("#Name").val(),
       id: $("#Id").val(),
+      type: $("#Type").val(),
     };
 
     $.ajax({
@@ -54,6 +56,7 @@ const editPlayer = () => {
       id: $("#Id").val(),
       name: $("#Name").val(),
       age: $("#Age").val(),
+      type: $("#Type").val(),
     };
 
     $.ajax({
@@ -105,6 +108,7 @@ const fillPlayerData = () => {
         $("#Id").val(res.id);
         $("#Name").val(res.name);
         $("#Age").val(res.age);
+        $("#Type").val(res.type);
       },
     });
   });
@@ -156,6 +160,7 @@ const reset = () => {
   $("#Id").val("");
   $("#Name").val("");
   $("#Age").val("");
+  $("#Type").val("");
 };
 
 validation();
