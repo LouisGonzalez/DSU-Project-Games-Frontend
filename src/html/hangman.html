@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script
@@ -20,16 +23,17 @@
 
 <body>
 
-  <div class="enterword">
+    <div class="block-container"> 
+      
+      
+      <div class="gamebox">
+        <div class="imageContainer">
+         <img class="hangmanboard" id=frameAttempts src="../images/hangman/HmFrame8.png" width=100% height=417px >   
+          <h3>Secret word:</h3>
+          <p1 id="secretWord"></p1>  
 
-        
-  </div>
+      </div>
 
-    <div class="block-container">     
-
-    <div class="gamebox">       
-
-      <img class="hangmanboard" id=frameattempts src="../images/hangman/HmFrame8.png" width=100% height=417px>  
 
       <div class ="gameinfo">        
         <h4>Attempts Left:</h4>
@@ -43,10 +47,10 @@
       
       <div class ="gameinfo">   
         <h3>Letters chosen:</h3>
-        <p1 id="guessedLetters"> " " </p1>  
+        <p1 id="guessedLetters">" "</p1>  
       </div>
       
-    </div>
+    </div> <!-- GAMEBOX -->  
 
     <div class="flat-form">
       <form action="">
@@ -61,12 +65,17 @@
         <div class="block-form">
           <a href="../../index.html" class="btn btn3">
             <strong>Go to the menu</strong></a>
+            
+          <a onclick="loadGame()" class="btn btn3 btn-right">
+            <strong>Save Game</strong></a>
         </div>
       </form>
       <h1 id="title-game">Hangman</h1>
     </div>
 
     </div>
+
+    
 
     <!-- **KEYBOARD** -->
     <div class="keycontainer">      
@@ -122,9 +131,11 @@
           <button type="button" onClick="input(this.id)" id=buttonM >M</button>
       </div>
 
+      <!--
       <div class="row five">
           <button type="button" onClick="space()" id=buttonSpace  class="space">Space</button>
      </div>
+      -->
     
   </div>
     

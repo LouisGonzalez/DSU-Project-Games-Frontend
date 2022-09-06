@@ -8,19 +8,6 @@ body {
   font-size: 16px;
 }
 
-
-.board {
-    height: 500px;
-    width: 50%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-around;
-    text-align: center;
-    opacity: 0.9;
-    background-color: #efefef;
-  }
   
 .gamebox {  
     background-image: url("../images/fondoneon.jpg");
@@ -31,8 +18,10 @@ body {
     position: relative;
 }
 
-.enterword {
-  
+.imageContainer{  
+  width: 100%;
+  height: 417px;
+  position:relative
 }
 
 .hangmanboard {
@@ -42,7 +31,7 @@ body {
 
 .gameinfo {  
   display: flex;
-  justify-content: center;
+  justify-content: right;
 }
 
 .block-container {
