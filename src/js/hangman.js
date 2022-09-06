@@ -6,17 +6,14 @@ var gameInfo = JSON.parse(localStorage.getItem("gameHM"));
 var idGame = 0;
 var gameOver = false;
 
-var keyRead = "";
-var gdletters = "";
-var mode = 1;
     /*
     mode = 1; Enter secret word
     mode = 2; Guess secret word
     mode = 3; Enter to play again
     */
 var attemptsLeft = 8;
-var sWord = "";    
 var countClicks = 0;
+var guessingWord = "";
 
 function initialValues() {
   sWord = "";
@@ -25,46 +22,24 @@ function initialValues() {
   keyRead = "";
   gdletters = "";
   mode = 1;
+  guessingWord = "";
 }
 
 function startguessing(){
   mode = 2;
   setSecretWord();
+  document.getElementById("player").innerHTML = "Player 2"; 
 }
 
-function input(key) {  
-  if (mode == 1){
-    sWord = sWord+document.getElementById(key).innerHTML; 
-    document.getElementById("secretWord").innerHTML = sWord;        
-  } 
-  if (mode == 2){
-      keyRead = document.getElementById(key).innerText; 
-      document.getElementById("guessingLetter").innerHTML = keyRead;        
-  }     
-}
 
-function del() {
-  if (mode == 1){
-    sWord = sWord.slice(0, -1);
-    document.getElementById("secretWord").innerHTML = sWord;
+function setSecretWordBot(){  
+  if (!checkRepetition()){
+  guessClick();
+  var secretWords = ["secreto","palabra","perro","apendice","amor","adivina","pensamiento","caricia","gato"];
+  var random = Math.floor(Math.random() * (secretWords.length) );
+  document.getElementById("secretWord").innerHTML = secretWords[random];
+  startguessing();
   }
-}
-
-function ent() {
-  if (mode == 2){
-    guessLetterHuman();
-}    
-  if (mode == 1){
-      if (sWord != ""){
-        startguessing();
-      }
-  } 
-}
-
-function ifExists(content, contentToFind){	
-  var result = result = (content.indexOf(contentToFind) > -1) ? true : false;
-  if (!result) attemptsLeft--;
-  document.getElementById("attempts").innerHTML = attemptsLeft;
 }
 
 function guessLetterBot(){  
@@ -73,45 +48,72 @@ function guessLetterBot(){
   var random = Math.floor(Math.random() * 28);
   gdletters = gdletters + alphabet[random];
   document.getElementById("guessedLetters").innerHTML = gdletters; 
-  putImage();
-}
-
-function setSecretWordBot(){  
-  guessClick();
-  var secretWords = ["secreto","palabra","perro","apendice","amor","adivina","pensamiento","caricia","gato"];
-  var random = Math.floor(Math.random() * (secretWords.length+1) );
-  sWord = secretWords[random];
-  putImage();
+  checkLetter();
 }
 
 function guessLetterHuman(){ 
+  if (!checkRepetition()){
   guessClick();
   gdletters = gdletters + keyRead;
   document.getElementById("guessedLetters").innerHTML = gdletters; 
-  putImage();
+  checkLetter();
+  }
 }
-
 
 function guessClick(){
   countClicks += 1;
   document.getElementById("countMoves").innerHTML = countClicks;  
  }
 
-function putImage(){ 
-  ifExists(sWord, keyRead);  
-  document.getElementById("frameAttempts").src = "../images/hangman/HmFrame"+attemptsLeft+".png"; 
+function ifExists(content, contentToFind){	
+  var result = result = (content.indexOf(contentToFind) > -1) ? true : false;
+  return result;
+}
 
+function setAttempts(){
+  if (!ifExists(sWord, keyRead)) attemptsLeft--;
+  document.getElementById("attempts").innerHTML = attemptsLeft;  
+  document.getElementById("frameAttempts").src = "../images/hangman/HmFrame"+attemptsLeft+".png"; 
+}
+
+function checkRepetition(){
+  return ifExists(gdletters, keyRead);
 }
 
 function setSecretWord(){
-  document.getElementById("secretWord").innerHTML = sWord; 
+  sWord = document.getElementById("secretWord").innerHTML;
+  
+  for (var i = 0;i < sWord.length; i++){
+    guessingWord += "_ ";
+  }
+  document.getElementById("secretWord").innerHTML = guessingWord;
    
+}
+
+function array2String(array){
+  var array2String = "";
+  for (var i = 0; i < array.length; i++){
+    array2String += array[i];
+  }
+  return array2String;
+}
+
+function checkLetter(){
+  setAttempts();  
+  var tempguessingWord = guessingWord.split(""); 
+  var tempsecretWord = sWord.split(""); 
+  if (ifExists(sWord, keyRead)){
+    for (var i = 0; i < sWord.length; i++){
+      if (tempsecretWord[i] == keyRead) tempguessingWord[i*2] = keyRead;
+    }
+    guessingWord = array2String(tempguessingWord);
+    document.getElementById("secretWord").innerHTML = guessingWord;
+  }
 }
 
 function checkWin(){
 
 }
 
-
-
-    
+  /* -------------------------------------------------- */  
+initialValues();
