@@ -16,6 +16,8 @@ var countClicks = 0;
 var guessingWord = "";
 
 function initialValues() {
+  idGame = gameInfo.idGame;
+  countClicks = gameInfo.countMoves;
   sWord = "";
   countClicks = 0;
   attemptsLeft = 8;
@@ -24,6 +26,56 @@ function initialValues() {
   mode = 1;
   guessingWord = "";
   gameOver = false;
+}
+
+function updateCountMoves() {
+  var dataMove = {
+    countMoves: countClicks,
+    game: idGame,
+    idPlayerGiver: PlayerGiver.id,
+    idPlayerGuesser: PlayerGuesser.id,
+  };
+  var dataMoveJSON = JSON.stringify(dataMove);
+  sendPetition(dataMoveJSON, API + "/game/hangman/count-moves/", "POST");
+}
+
+function sendGuess(secretword, guessedLETTER, playergiver, playerguesser) {
+  var data = {
+    idGame: idGame,
+    secretWORD: secretword,
+    guessedLETTERs: guessedLETTER,
+    idPlayerGiver: PlayerGiver.id,
+    idPlayerGuesser: PlayerGuesser.id,
+  };
+
+  var dataJSON = JSON.stringify(data);
+  var url = API + "/hangman/guess/";
+  sendPetition(dataJSON, url, "POST");
+}
+
+function sendPetition(dataJSON, url, typePetition) {
+  var movementReq = new XMLHttpRequest();
+  movementReq.open(typePetition, url, true);
+  movementReq.setRequestHeader("Content-Type", "application/json");
+  movementReq.onreadystatechange = function () {
+    if (movementReq.readyState === 4 && movementReq.status === 200) {
+      //var json = JSON.parse(movementReq.responseText);
+    }
+    if (movementReq.response === "The game is over") gameOver = true;
+    alert(movementReq.response);
+  };
+  movementReq.send(dataJSON);
+}
+
+
+function loadBoard() {
+  let req = new XMLHttpRequest();
+  req.open("GET", API + "/game/hangman/" + idGame);
+  req.send();
+  req.onload = () => {
+    var resJSON = JSON.parse(req.response);
+    
+  };
 }
 
 function startgame(){
@@ -145,3 +197,5 @@ function endGame(){
 
   /* -------------------------------------------------- */  
 initialValues();
+
+document.getElementById("playerTurn").innerHTML = playerGiver.userName;
