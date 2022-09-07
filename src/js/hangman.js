@@ -19,10 +19,22 @@ function initialValues() {
   sWord = "";
   countClicks = 0;
   attemptsLeft = 8;
-  keyRead = "";
-  gdletters = "";
+  keyRead = '" "';
+  gdletters = '" "';
   mode = 1;
   guessingWord = "";
+  gameOver = false;
+}
+
+function startgame(){
+  initialValues();
+  document.getElementById("player").innerHTML = "Player 1"; 
+  document.getElementById("frameAttempts").src = "../images/hangman/HmFrame"+attemptsLeft+".png"; 
+  document.getElementById("attempts").innerHTML = attemptsLeft; 
+  document.getElementById("guessedLetters").innerHTML = gdletters;
+  document.getElementById("secretWord").innerHTML = sWord;
+  document.getElementById("guessingLetter").innerHTML = keyRead; 
+  document.getElementById("countMoves").innerHTML = countClicks; 
 }
 
 function startguessing(){
@@ -74,7 +86,7 @@ function setAttempts(){
   if (!ifExists(sWord, keyRead)) attemptsLeft--;
   document.getElementById("attempts").innerHTML = attemptsLeft;  
   document.getElementById("frameAttempts").src = "../images/hangman/HmFrame"+attemptsLeft+".png"; 
-  if (attemptsLeft == 0) gameOver = true;
+  if (attemptsLeft == 0) endGame();
 }
 
 function checkRepetition(){
@@ -115,16 +127,21 @@ function checkLetter(){
 }
 
 function checkWin(){
-
   var temp = array2String(guessingWord.split(" "));
 
   if (temp == sWord){
-    document.getElementById("frameAttempts").src = "../images/hangman/HmFrameWin.png"; 
-    gameOver = true;
+    document.getElementById("frameAttempts").src = "../images/hangman/HmFrameWin.png";
+    endGame();
   }
  /* document.getElementById("secretWord").innerHTML = array2String(temp);*/
 
 }
+
+function endGame(){
+  document.getElementById("guessedLetters").innerHTML = "Press Enter to play again"; 
+  gameOver = true;
+}
+
 
   /* -------------------------------------------------- */  
 initialValues();
