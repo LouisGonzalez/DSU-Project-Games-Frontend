@@ -4,6 +4,7 @@ var gdletters = "";
 
 var keyRead = "";
 var mode = 1;
+var botTurn = false;
 
 function input(key) {  
     if (mode == 1){
@@ -30,6 +31,10 @@ function input(key) {
         if (mode == 2) mode = 3;
         else startGame();
   }   
+    if (botTurn){
+      if (mode == 1) setSecretWordBot();
+      if (mode == 2) guessLetterBot();
+    }
   }
 
 
