@@ -1,0 +1,86 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css);
+
+body {
+  background: url("../images/fondo-juegos.jpg");
+  padding: 50px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+}
+
+  
+.gamebox {  
+    background-image: url("../images/fondoneon.jpg");
+    opacity: 0.9;
+    margin: 25px auto;
+    width: 35%;
+    height: 417px;
+    position: relative;
+}
+
+.imageContainer{  
+  width: 100%;
+  height: 417px;
+  position:relative
+}
+
+.hangmanboard {
+  opacity: 0.85;
+  z-index: 1;
+}
+
+.gameinfo {  
+  display: flex;
+  justify-content: right;
+}
+
+.block-container {
+    display: flex;
+    justify-content: center;
+  }
+
+.block-form {
+    display: flex;
+    margin: 15px;
+    margin-top: 30px;
+  }
+
+.flat-form {
+    background: #12283e; /*tablebg e74c3c #34495e  #88565b ed7271*/
+    opacity: 0.9;
+    margin: 25px auto;
+    width: 50%;
+    height: 300px;
+    position: relative;
+  }
+
+h1 {
+  font-size: 40px;
+}
+
+p {
+  margin-left: 15px;
+  font-size: 40px;
+  color: #4ed2b8;
+}
+p1 {
+  margin-left: 15px;
+  font-size: 20px;
+  color: #4ed2b8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: #fff;
+}
+
+#title-game {
+  font-size: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+

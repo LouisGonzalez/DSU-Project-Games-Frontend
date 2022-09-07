@@ -1,20 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
       integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
       crossorigin="anonymous"
-    ></script>
+    ></script>  
+     
+    <link rel="stylesheet" href="../css/components/buttons.css" >
+    <link rel="stylesheet" href="../css/style_hangman.css" >
+    <link rel="stylesheet" href="../css/components/keyboard.css" >
+
+    <title>Hangman</title>
+
   </head>
-  <body></body>
+
+<body>
+
+    <div class="block-container"> 
+      
+      
+      <div class="gamebox">
+        <div class="imageContainer">
+         <img class="hangmanboard" id=frameAttempts src="../images/hangman/HmFrame8.png" width=100% height=417px >   
+          <h3>Secret word:</h3>
+          <p1 id="secretWord"></p1>  
+
+      </div>
+
+
+      <div class ="gameinfo">        
+        <h4>Attempts Left:</h4>
+        <p1 id="attempts">8</p1>
+      </div>
+
+      <div class ="gameinfo">    
+        <h4>Letter selected:</h4>
+        <p1 id="guessingLetter"></p1>
+      </div>
+      
+      <div class ="gameinfo">   
+        <h3>Letters chosen:</h3>
+        <p1 id="guessedLetters"></p1>  
+      </div>
+      
+    </div> <!-- GAMEBOX -->  
+
+    <div class="flat-form">
+      <form action="">
+        <div class="block-form">
+          <h1>Turn:</h1>
+          <p id="player">Player 1</p>
+        </div>
+        <div class="block-form">
+          <h1>Guessing count:</h1>
+          <p id="countMoves">0</p>
+        </div>
+        <div class="block-form">
+          <a href="../../index.html" class="btn btn3">
+            <strong>Go to the menu</strong></a>
+            
+          <a onclick="loadGame()" class="btn btn3 btn-right">
+            <strong>Save Game</strong></a>
+        </div>
+      </form>
+      <h1 id="title-game">Hangman</h1>
+    </div>
+
+    </div>
+
+    
+
+    <!-- **KEYBOARD** -->
+    <div class="keycontainer">      
+      <div class="row one">
+          <button type="button" onClick="input(this.id)" id=button1 >1</button>
+          <button type="button" onClick="input(this.id)" id=button2 >2</button>
+          <button type="button" onClick="input(this.id)" id=button3 >3</button>
+          <button type="button" onClick="input(this.id)" id=button4 >4</button>
+          <button type="button" onClick="input(this.id)" id=button5 >5</button>
+          <button type="button" onClick="input(this.id)" id=button6 >6</button>
+          <button type="button" onClick="input(this.id)" id=button7 >7</button>
+          <button type="button" onClick="input(this.id)" id=button8 >8</button>
+          <button type="button" onClick="input(this.id)" id=button9 >9</button>
+          <button type="button" onClick="input(this.id)" id=button0 >0</button>
+          <button type="button" onClick="del()" id=buttonBack  class="back">Backspace</button>
+      </div>
+
+      <div class="row two">
+          <button type="button" onClick="input(this.id)" id=buttonQ >Q</button>
+          <button type="button" onClick="input(this.id)" id=buttonW >W</button>
+          <button type="button" onClick="input(this.id)" id=buttonE >E</button>
+          <button type="button" onClick="input(this.id)" id=buttonR >R</button>
+          <button type="button" onClick="input(this.id)" id=buttonT >T</button>
+          <button type="button" onClick="input(this.id)" id=buttonY >Y</button>
+          <button type="button" onClick="input(this.id)" id=buttonU >U</button>
+          <button type="button" onClick="input(this.id)" id=buttonI >I</button>
+          <button type="button" onClick="input(this.id)" id=buttonO >O</button>
+          <button type="button" onClick="input(this.id)" id=buttonP >P</button>
+      </div>
+
+      <div class="row three">
+          <button type="button" onClick="input(this.id)" id=buttonA >A</button>
+          <button type="button" onClick="input(this.id)" id=buttonS >S</button>
+          <button type="button" onClick="input(this.id)" id=buttonD >D</button>
+          <button type="button" onClick="input(this.id)" id=buttonF >F</button>
+          <button type="button" onClick="input(this.id)" id=buttonG >G</button>
+          <button type="button" onClick="input(this.id)" id=buttonH >H</button>
+          <button type="button" onClick="input(this.id)" id=buttonI >I</button>
+          <button type="button" onClick="input(this.id)" id=buttonJ >J</button>
+          <button type="button" onClick="input(this.id)" id=buttonK >K</button>
+          <button type="button" onClick="input(this.id)" id=buttonL >L</button>
+          <button type="button" onClick="input(this.id)" id=buttonÑ >Ñ</button>
+          <button type="button" onClick="ent()" id=buttonEnter  class="enter-btn">Enter</button>
+      </div>
+
+      <div class="row four">
+          <button type="button" onClick="input(this.id)" id=buttonZ >Z</button>
+          <button type="button" onClick="input(this.id)" id=buttonX >X</button>
+          <button type="button" onClick="input(this.id)" id=buttonC >C</button>
+          <button type="button" onClick="input(this.id)" id=buttonV >V</button>
+          <button type="button" onClick="input(this.id)" id=buttonB >B</button>
+          <button type="button" onClick="input(this.id)" id=buttonN >N</button>
+          <button type="button" onClick="input(this.id)" id=buttonM >M</button>
+      </div>
+
+      <!--
+      <div class="row five">
+          <button type="button" onClick="space()" id=buttonSpace  class="space">Space</button>
+     </div>
+      -->
+    
+  </div>
+    
+  <script src="../js/hangman.js"></script>
+  <script src="../js/keyboard.js"></script>
+</body>
+
 </html>
