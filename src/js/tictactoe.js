@@ -93,11 +93,10 @@ function sendPetition(dataJSON, url, typePetition) {
   movementReq.open(typePetition, url, true);
   movementReq.setRequestHeader("Content-Type", "application/json");
   movementReq.onreadystatechange = function () {
-    if (movementReq.readyState === 4 && movementReq.status === 200) {
-      //var json = JSON.parse(movementReq.responseText);
+    if (movementReq.response === "The game is over") {
+      gameOver = true;
+      alert(movementReq.response);
     }
-    if (movementReq.response === "The game is over") gameOver = true;
-    alert(movementReq.response);
   };
   movementReq.send(dataJSON);
 }
