@@ -8,13 +8,14 @@ var countMoves = 0;
 
 function getGameList() {
   let req = new XMLHttpRequest();
-  req.open("GET", API + "/game/tictactoe/all");
+  req.open("GET", API + "/game/tictactoe/games-tictactoe");
   req.send();
   let data = "";
   req.onload = () => {
     var resJSON = JSON.parse(req.response);
     console.log(resJSON);
     games = resJSON;
+    console.log(resJSON);
     resJSON.forEach((game) => {
       data += `<tr playerId = ${game.idGame}>
       <td align="center">${game.idGame}</td>

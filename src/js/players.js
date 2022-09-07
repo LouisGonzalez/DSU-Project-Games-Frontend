@@ -1,19 +1,21 @@
 var $ = jQuery;
+const API = "http://localhost:8080/api/v1";
 
 const listplayers = () => {
   $(document).ready(() => {
     $.ajax({
-      url: "http://localhost:8080/api/v1/all/",
+      url: API + "/player/all/",
       type: "GET",
       datatype: "json",
       success: (res) => {
         let data = "";
         res.forEach((element) => {
+          console.log(element);
           data += `<tr playerId = ${element.id}>
         <td>${element.id}</td>
-        <td>${element.name}</td>
+        <td>${element.userName}</td>
         <td>${element.age}</td>
-        <td>${element.type}</td>
+        <td>${element.typePlayer}</td>
         <td><a id= "edit1" href="#" class="btn btn2"><strong>Edit</strong></a></td>
         <td><a id="delete" href="#" class="btn btn2"><strong>Delete</strong></a></td>
         </tr>`;
@@ -54,13 +56,13 @@ const editPlayer = () => {
 
     const playerData = {
       id: $("#Id").val(),
-      name: $("#Name").val(),
+      username: $("#Name").val(),
       age: $("#Age").val(),
-      type: $("#Type").val(),
+      typePlayer: $("#Type").val(),
     };
 
     $.ajax({
-      url: "http://localhost:8080/updatePlayer",
+      url: API + "/player/updatePlayer",
       contentType: "application/json",
       type: "PUT",
       data: JSON.stringify(playerData),
@@ -81,7 +83,7 @@ const deletePlayer = () => {
       let id = $(deleteButton).attr("playerId");
 
       $.ajax({
-        url: "http://localhost:8080/delete/" + id,
+        url: API + "/player/delete/" + id,
         type: "DELETE",
         dataType: "json",
         success: (res) => {
@@ -100,7 +102,7 @@ const fillPlayerData = () => {
     $("#edit1").show();
 
     $.ajax({
-      url: "http://localhost:8080/getPlayerById/" + id,
+      url: API + "/player/getPlayerById/" + id,
       type: "GET",
       dataType: "json",
       success: (res) => {
@@ -117,7 +119,7 @@ const fillPlayerData = () => {
 const validation = () => {
   $(document).on("click", "#validate", function () {
     $.ajax({
-      url: "http://localhost:8080/playerList/",
+      url: API + "/playerList/",
       type: "GET",
       datatype: "json",
       success: function (data) {
@@ -138,7 +140,7 @@ const validation = () => {
 const validation2 = () => {
   $(document).on("click", "#validate2", function () {
     $.ajax({
-      url: "http://localhost:8080/playerList/",
+      url: API + "/playerList/",
       type: "GET",
       datatype: "json",
       success: function (data) {

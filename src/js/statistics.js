@@ -1,10 +1,11 @@
 var $ = jQuery;
+const API = "http://localhost:8080/api/v1";
 
 const liststats = () => {
   $("#hidden").hide();
   $("#showAll").on("click", () => {
     $.ajax({
-      url: "http://localhost:8080/StatisticList",
+      url: API + "/statistics/StatisticList",
       type: "GET",
       datatype: "json",
       success: (res) => {
@@ -12,13 +13,15 @@ const liststats = () => {
         $("#hidden").show();
         let data = "";
         res.forEach((element) => {
-          data += `<tr playerId = ${element.name}>
-        <td>${element.id}</td>
-        <td>${element.name}</td>
-        <td>${element.game}</td>
-        <td>${element.type}</td>
-        </tr>`;
+          element.myStatistics.listStatistics.forEach((stats) => {
+            data += `<tr playerId = ${element.name}>
+            <td>${element.name}</td>
+            <td>${stats.typeGame}</td>
+            <td>${stats.value}</td>
+            </tr>`;
+          });
         });
+
         $("#tbody").html(data);
       },
     });
@@ -29,7 +32,7 @@ const listStatsHG = () => {
   $("#hidden").hide();
   $("#showHG").on("click", () => {
     $.ajax({
-      url: "http://localhost:8080/StatisticsByGame/hangmanGame",
+      url: API + "/statistics/statistics-hangman",
       type: "GET",
       datatype: "json",
       success: (res) => {
@@ -37,12 +40,15 @@ const listStatsHG = () => {
         $("#hidden").show();
         let data = "";
         res.forEach((element) => {
-          data += `<tr playerId = ${element.id}>
-        <td>${element.id}</td>
-        <td>${element.name}</td>
-        <td>${element.game}</td>
-        <td>${element.type}</td>
-        </tr>`;
+          element.myStatistics.listStatistics.forEach((stats) => {
+            if (stats.typeGame == "HANGMAN") {
+              data += `<tr playerId = ${stats.typeGame}>
+            <td>${element.name}</td>
+            <td>${stats.typeGame}</td>
+            <td>${stats.value}</td>
+            </tr>`;
+            }
+          });
         });
         $("#tbody").html(data);
       },
@@ -54,7 +60,7 @@ const listStatsTTT = () => {
   $("#hidden").hide();
   $("#showTTT").on("click", () => {
     $.ajax({
-      url: "http://localhost:8080/StatisticsByGame/tictactoeGame",
+      url: API + "/statistics/statistics-tictactoe",
       type: "GET",
       datatype: "json",
       success: (res) => {
@@ -62,12 +68,15 @@ const listStatsTTT = () => {
         $("#hidden").show();
         let data = "";
         res.forEach((element) => {
-          data += `<tr playerId = ${element.id}>
-        <td>${element.id}</td>
-        <td>${element.name}</td>
-        <td>${element.game}</td>
-        <td>${element.type}</td>
-        </tr>`;
+          element.myStatistics.listStatistics.forEach((stats) => {
+            if (stats.typeGame == "TICTACTOE") {
+              data += `<tr playerId = ${stats.typeGame}>
+            <td>${element.name}</td>
+            <td>${stats.typeGame}</td>
+            <td>${stats.value}</td>
+            </tr>`;
+            }
+          });
         });
         $("#tbody").html(data);
       },

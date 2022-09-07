@@ -11,9 +11,15 @@ var countClicks = 0;
 var squares = [];
 var gameOver = false;
 
-function initValues() {
+function initValuesGame() {
   idGame = gameInfo.idGame;
   countClicks = gameInfo.countMoves;
+  document.getElementById("countMoves").innerHTML = countClicks;
+  if (countClicks % 2 == 0) {
+    document.getElementById("playerTurn").innerHTML = playerX.userName;
+  } else {
+    document.getElementById("playerTurn").innerHTML = playerO.userName;
+  }
   if (countClicks > 0) {
     loadBoard();
   }
@@ -119,8 +125,7 @@ function loadBoard() {
   };
 }
 
-initValues();
-document.getElementById("playerTurn").innerHTML = playerX.userName;
+initValuesGame();
 initialValues();
 for (let i = 0; i < squares.length; i++) {
   squares[i].square.addEventListener("click", () => {
