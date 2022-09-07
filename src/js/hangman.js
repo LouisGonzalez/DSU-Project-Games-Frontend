@@ -19,8 +19,8 @@ function initialValues() {
   sWord = "";
   countClicks = 0;
   attemptsLeft = 8;
-  keyRead = '" "';
-  gdletters = '" "';
+  keyRead = "";
+  gdletters = "";
   mode = 1;
   guessingWord = "";
   gameOver = false;
