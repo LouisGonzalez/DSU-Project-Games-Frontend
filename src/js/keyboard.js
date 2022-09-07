@@ -28,7 +28,7 @@ function input(key) {
     } 
     if (gameOver){
         if (mode == 2) mode = 3;
-        else startgame();
+        else startGame();
   }   
   }
 
