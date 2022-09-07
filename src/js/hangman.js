@@ -74,6 +74,7 @@ function setAttempts(){
   if (!ifExists(sWord, keyRead)) attemptsLeft--;
   document.getElementById("attempts").innerHTML = attemptsLeft;  
   document.getElementById("frameAttempts").src = "../images/hangman/HmFrame"+attemptsLeft+".png"; 
+  if (attemptsLeft == 0) gameOver = true;
 }
 
 function checkRepetition(){
@@ -102,16 +103,26 @@ function checkLetter(){
   setAttempts();  
   var tempguessingWord = guessingWord.split(""); 
   var tempsecretWord = sWord.split(""); 
+
   if (ifExists(sWord, keyRead)){
     for (var i = 0; i < sWord.length; i++){
       if (tempsecretWord[i] == keyRead) tempguessingWord[i*2] = keyRead;
     }
     guessingWord = array2String(tempguessingWord);
     document.getElementById("secretWord").innerHTML = guessingWord;
+    checkWin();
   }
 }
 
 function checkWin(){
+
+  var temp = array2String(guessingWord.split(" "));
+
+  if (temp == sWord){
+    document.getElementById("frameAttempts").src = "../images/hangman/HmFrameWin.png"; 
+    gameOver = true;
+  }
+ /* document.getElementById("secretWord").innerHTML = array2String(temp);*/
 
 }
 

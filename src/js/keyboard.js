@@ -10,7 +10,7 @@ function input(key) {
       sWord = sWord+document.getElementById(key).innerHTML; 
       document.getElementById("secretWord").innerHTML = sWord;        
     } 
-    if (mode == 2){
+    if (mode == 2 && gameOver == false){
         keyRead = document.getElementById(key).innerText; 
         document.getElementById("guessingLetter").innerHTML = keyRead;        
     }     
